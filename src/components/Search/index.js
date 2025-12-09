@@ -26,11 +26,28 @@ const Subtitle = styled.h3`
         margin-bottom: 40px;
 `
 
+const Result = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  p {
+      width: 200px;
+  }
+  img {
+      width: 100px;
+  }
+  &:hover {
+      border: 1px solid white;
+  }
+`
+
 export default function Search() {
   const [booksSearched, setBooksSearched] = useState([])
-  
-  console.log(booksSearched)
 
+  console.log(booksSearched)
+  
   return (
     <SearchContainer>
       <Title>Já sabe por onde começar?</Title>
@@ -43,6 +60,14 @@ export default function Search() {
           }))
         }}
       />
+      { booksSearched.map(book => {
+        return(
+          <Result>
+            <p>{book.name}</p>
+            <img src={book.src} />
+          </Result>
+        )
+      })}
     </SearchContainer>
   )
 }
