@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-import styled from "styled-components";
-
-import Input from "../Input";
+import Input from '../Input';
+import { books } from './dateSearch';
 
 const SearchContainer = styled.section`
         background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
@@ -27,16 +27,20 @@ const Subtitle = styled.h3`
 `
 
 export default function Search() {
-  const [text, setText] = useState('')
+  const [booksSearched, setBooksSearched] = useState([])
+  
+  console.log(booksSearched)
 
   return (
     <SearchContainer>
       <Title>Já sabe por onde começar?</Title>
       <Subtitle>Encontre seu livro em nossa estante.</Subtitle>
       <Input 
-        placeholder="Escreva sua próxima leitura" 
+        placeholder='Escreva sua próxima leitura' 
         onBlur={(event) => {
-          setText(event.target.value)
+          setBooksSearched(books.filter((book) => {
+            return book.name.includes(event.target.value)
+          }))
         }}
       />
     </SearchContainer>
