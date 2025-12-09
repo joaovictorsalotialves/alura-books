@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import styled from "styled-components";
 
 import Input from "../Input";
@@ -25,11 +27,18 @@ const Subtitle = styled.h3`
 `
 
 export default function Search() {
+  const [text, setText] = useState('')
+
   return (
     <SearchContainer>
       <Title>Já sabe por onde começar?</Title>
       <Subtitle>Encontre seu livro em nossa estante.</Subtitle>
-      <Input placeholder="Escreva sua próxima leitura" />
+      <Input 
+        placeholder="Escreva sua próxima leitura" 
+        onBlur={(event) => {
+          setText(event.target.value)
+        }}
+      />
     </SearchContainer>
   )
 }
