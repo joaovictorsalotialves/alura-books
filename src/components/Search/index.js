@@ -5,25 +5,34 @@ import Input from '../Input';
 import { books } from './dateSearch';
 
 const SearchContainer = styled.section`
-        background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
-        color: #FFF;
-        text-align: center;
-        padding: 85px 0;
-        height: 270px;
-        width: 100%;
+  background-image: linear-gradient(90deg, #002F52 35%, #326589);
+  color: #FFF;
+  text-align: center;
+  padding: 85px 0;
+  height: auto;
+  width: 100%;
+  margin: auto;
 `
 
 const Title = styled.h2`
-        color: #FFF;
-        font-size: 36px;
-        text-align: center;
-        width: 100%;
+  color: #FFF;
+  font-size: 36px;
+  text-align: center;
+  width: 100%;
 `
 
 const Subtitle = styled.h3`
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+`
+
+const Results = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 `
 
 const Result = styled.div`
@@ -32,42 +41,44 @@ const Result = styled.div`
   align-items: center;
   margin-bottom: 20px;
   cursor: pointer;
+  width: 80%;
   p {
-      width: 200px;
+    width: 200px;
   }
   img {
-      width: 100px;
+    width: 100px;
   }
   &:hover {
-      border: 1px solid white;
+    border: 1px solid white;
   }
 `
 
 export default function Search() {
   const [booksSearched, setBooksSearched] = useState([])
 
-  console.log(booksSearched)
-  
   return (
     <SearchContainer>
       <Title>Já sabe por onde começar?</Title>
       <Subtitle>Encontre seu livro em nossa estante.</Subtitle>
       <Input 
         placeholder='Escreva sua próxima leitura' 
-        onBlur={(event) => {
+        onKeyUp={(event) => {
           setBooksSearched(books.filter((book) => {
-            return book.name.includes(event.target.value)
+            if (event.target.value.trim()) return book.name.includes(event.target.value.trim())
+            else return null
           }))
         }}
       />
-      { booksSearched.map(book => {
-        return(
-          <Result>
-            <p>{book.name}</p>
-            <img src={book.src} />
-          </Result>
-        )
-      })}
+      <Results>
+        { booksSearched.map(book => {
+          return(
+            <Result>
+              <p>{book.name}</p>
+              <img src={book.src} />
+            </Result>
+          )
+        })}
+      </Results>
     </SearchContainer>
   )
 }

@@ -8,6 +8,7 @@ const HeaderContainer = styled.header`
   background-color: #FFF;
   display: flex;
   justify-content: center;
+  width: 100%;
 `
 
 export default function Header() {
