@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const options = ['CATEGORIAS', 'MINHA ESTANTE', 'FAVORITOS'];
+const options =  [
+  { name: 'CATEGORIAS', path: '/categories' },
+  { name: 'MINHA ESTANTE', path: '/shelf' },
+  { name: 'FAVORITOS', path: '/favorite' }
+]
 
 const Options = styled.ul`
   display: flex;
@@ -22,7 +27,11 @@ export default function OptionsHeader() {
   return (
     <Options>
       { options.map((option) => {
-        return <Option key={option}><p>{option}</p></Option>
+        return (
+          <Link to={option.path}>
+            <Option key={option.name}><p>{option.name}</p></Option>
+          </Link>
+        )
       })}
     </Options>
   )
