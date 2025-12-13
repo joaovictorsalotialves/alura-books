@@ -59,9 +59,13 @@ export default function Search() {
   const [books, setBooks] = useState([])
 
   useEffect(() => {
-    const booksApi = getBooks()
-    setBooks(booksApi)
+   fetchBooks()
   }, [])
+
+  async function fetchBooks() {
+    const booksApi = await getBooks()
+    setBooks(booksApi)
+  }
 
   return (
     <SearchContainer>
