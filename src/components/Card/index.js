@@ -53,7 +53,7 @@ export default function Card({ title, subtitle, description, img }) {
         <Description>{description}</Description>
       </div>
       <div>
-        <ImageBook src={img}/>
+        <ImageBook src={img} alt={`Livro: ${title}`} />
         <Buttom>Saiba mais</Buttom>
       </div>
     </CardContainer>  

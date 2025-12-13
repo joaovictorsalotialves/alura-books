@@ -64,7 +64,7 @@ export default function Search() {
         placeholder='Escreva sua próxima leitura' 
         onKeyUp={(event) => {
           setBooksSearched(books.filter((book) => {
-            if (event.target.value.trim()) return book.name.includes(event.target.value.trim())
+            if (event.target.value.trim()) return book.title.includes(event.target.value.trim())
             else return null
           }))
         }}
@@ -73,8 +73,8 @@ export default function Search() {
         { booksSearched.map(book => {
           return(
             <Result>
-              <p>{book.name}</p>
-              <img src={book.src} />
+              <p>{book.title}</p>
+              <img src={book.src} alt={`Livro: ${book.title}`} />
             </Result>
           )
         })}

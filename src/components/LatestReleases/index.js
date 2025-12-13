@@ -27,7 +27,7 @@ export default function LatestReleases() {
       <Title textColor='#EB9B00' fontSize='36px'>Ultimos lançamentos</Title>
       <NewBooksContainer>
         { books.map((book) => {
-          return <img key={book.id} src={book.src}/>
+          return <img key={book.id} src={book.src} alt={`Livro: ${book.title}`} />
         })}
       </NewBooksContainer>
       <Card 
