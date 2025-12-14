@@ -9,6 +9,16 @@ async function getFavorites() {
   return response.data
 }
 
+async function addFavorite(id) {
+  await favoritesApi.post(`/${id}`)
+}
+
+async function removeFavorite(id) {
+  await favoritesApi.delete(`/${id}`)
+}
+
 export {
   getFavorites,
+  addFavorite,
+  removeFavorite,
 }
