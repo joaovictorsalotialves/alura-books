@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Input from '../Input';
 
 import { getBooks } from '../../services/books';
+import { addFavorite } from '../../services/favorites';
 
 const SearchContainer = styled.section`
   background-image: linear-gradient(90deg, #002F52 35%, #326589);
@@ -58,14 +59,19 @@ export default function Search() {
   const [booksSearched, setBooksSearched] = useState([])
   const [books, setBooks] = useState([])
 
-  useEffect(() => {
-   fetchBooks()
-  }, [])
-
   async function fetchBooks() {
     const booksApi = await getBooks()
     setBooks(booksApi)
   }
+
+  async function handleAddFavorite(id) {
+    await addFavorite(id)
+    alert(`Livro de id ${id} adicionado aos favoritos!`)
+  }
+
+  useEffect(() => {
+   fetchBooks()
+  }, [])
 
   return (
     <SearchContainer>
@@ -83,7 +89,7 @@ export default function Search() {
       <Results>
         { booksSearched.map(book => {
           return(
-            <Result>
+            <Result onClick={() => handleAddFavorite(book.id)}>
               <p>{book.title}</p>
               <img src={book.src} alt={`Livro: ${book.title}`} />
             </Result>

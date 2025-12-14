@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import livroImg from '../images/livro.png'
 
-import { getFavorites } from '../services/favorites'
+import { getFavorites, removeFavorite } from '../services/favorites'
 
 const AppContainer = styled.div`
     width: 99vw;
@@ -48,14 +48,20 @@ const Title = styled.h2`
 function Favorites() {
   const [favorites, setFavorites] = useState([])
 
-  useEffect(() => {
-    fetchFavorites()
-  }, [])
-
   async function fetchFavorites() {
     const favoritesApi = await getFavorites()
     setFavorites(favoritesApi)
   }
+
+  async function handleRemoveFavorite(id) {
+    await removeFavorite(id)
+    await fetchFavorites()
+    alert(`Livro de id ${id} removido aos favoritos!`)
+  }
+
+  useEffect(() => {
+    fetchFavorites()
+  }, [])
 
   return (
     <AppContainer>
@@ -63,7 +69,7 @@ function Favorites() {
       <Title>Aqui estão seus livros favoritos:</Title>
       <ResultContainer>
         {favorites.map((favorite) => (
-          <Result>
+          <Result onClick={() => {handleRemoveFavorite(favorite.id)}}>
             <p>{favorite.title}</p>
             <img src={livroImg} alt={`Livro: ${favorite.title}`}/>
           </Result>
